@@ -11,11 +11,11 @@ import java.util.List;
 @Setter
 public class Group {
 
-    char groupName;
+    String groupName;
     int numberOfTeams;
     HashMap<String, Integer> table;
 
-    public Group(char name, List<String> teams) {
+    public Group(String name, List<String> teams) {
         for (String team: teams) {
             this.table.put(team, 0);
         }
@@ -25,5 +25,9 @@ public class Group {
 
     public List<String> getTeams() {
         return new ArrayList<String>(this.table.keySet());
+
     }
+
+
+
 }

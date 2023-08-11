@@ -14,13 +14,15 @@ public class Tournament {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    String name;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int numberOfTeams;
-    private int numberOfGroups;
-
 
     @OneToMany(mappedBy = "tournament")
     private List<String> matches = new ArrayList<>();
+    private List<String> teams;
+
+    public Tournament(String name) {
+        this.name = name;
+    }
 }
