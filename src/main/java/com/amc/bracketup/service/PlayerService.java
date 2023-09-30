@@ -22,5 +22,13 @@ public class PlayerService {
         if (player != null) {
             player.setPoints(points);
         }
+
     }
+
+    public Player addPlayer(Player player) {
+        // add Validation logic here
+        return playerRepository.save(player);
+    }
+
+
 }

@@ -1,4 +1,11 @@
-import { Box, HStack, useRadio, useRadioGroup, Select } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  useRadio,
+  useRadioGroup,
+  Select,
+  VStack,
+} from "@chakra-ui/react";
 
 // 1. Create a component that consumes the `useRadio` hook
 function RadioCard(props) {
@@ -26,6 +33,7 @@ function RadioCard(props) {
         }}
         px={5}
         py={3}
+        width={85}
       >
         {props.children}
       </Box>
@@ -82,5 +90,19 @@ export function ElimPicks({ teams }) {
         </option>
       ))}
     </Select>
+  );
+}
+
+export function AllGroupPicks({ groups }) {
+  return (
+    <HStack wrap="wrap">
+      {groups.map((group, index) => (
+        <VStack ml={3} align="left" mb={10}>
+          <Picks teams={group}></Picks>
+          <ElimPicks teams={group}></ElimPicks>
+          <ElimPicks teams={group}></ElimPicks>
+        </VStack>
+      ))}
+    </HStack>
   );
 }
