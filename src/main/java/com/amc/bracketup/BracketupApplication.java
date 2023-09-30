@@ -1,6 +1,9 @@
 package com.amc.bracketup;
 
+import com.amc.bracketup.entity.GroupStage;
 import com.amc.bracketup.entity.Team;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BracketupApplication {
 
     public static void main(String[] args) {
@@ -32,6 +36,7 @@ public class BracketupApplication {
 
 
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
 
             String jsonResponse = EntityUtils.toString(response.getEntity());
@@ -42,12 +47,26 @@ public class BracketupApplication {
             JsonNode node = responseNode.get(0);
             ArrayNode standingsNode = (ArrayNode) node.get("league").get("standings");
 
+            List<Team> teams = new ArrayList<Team>();
+
             for (JsonNode groupNode : standingsNode) {
-                System.out.println(groupNode.toPrettyString());
+//                System.out.println(groupNode.get(0).get("team").get("name"));
+                for (JsonNode teamNode : groupNode) {
+                    String teamString = teamNode.toString();
+                    Team team = objectMapper.readValue(teamString, Team.class);
+                    team.setName(teamNode.get("team").get("name").asText());
+                    team.setId(teamNode.get("team").get("id").asInt());
+                    teams.add(team);
+//                    System.out.println(objectMapper.writeValueAsString(team));
+                }
+
             }
 
-//            String responseB = objectWriter.writeValueAsString(objectMapper.readTree(ex));
-//            System.out.println(responseB);
+            GroupStage groupStage = new GroupStage(teams);
+//            System.out.println(groupStage.getGroups());
+
+            String responseB = objectWriter.writeValueAsString(groupStage.getGroups());
+            System.out.println(responseB);
 
 
 

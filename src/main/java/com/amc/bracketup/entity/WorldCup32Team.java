@@ -6,6 +6,7 @@ public class WorldCup32Team extends Tournament implements TournamentFormat  {
 
     private static final int numTeams = 32;
     private static final int numGroups = 8;
+    GroupStage groupStageKey;
 
 
     public WorldCup32Team(List<String> teams) {
