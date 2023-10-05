@@ -19,7 +19,7 @@ function Home() {
   const options = ["Netherlands", "Draw", "Senegal"];
 
   return (
-    <Box bg="blackAlpha.50">
+    <Box>
       <Header></Header>
       <Leaderboard></Leaderboard>
     </Box>

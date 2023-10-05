@@ -21,7 +21,34 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
+function PlayerRows({ players }) {
+  return players.map((player, index) => (
+    <Tr>
+      <Td>{player.rank}</Td>
+      <Td>{player.name}</Td>
+      <Td>{player.points}</Td>
+    </Tr>
+  ));
+}
+
 export default function Leaderboard() {
+  let players = [
+    {
+      name: "Abra",
+      points: 24,
+      rank: 1,
+    },
+    {
+      name: "Ringo",
+      points: 12,
+      rank: 2,
+    },
+    {
+      name: "Puka",
+      points: 11,
+      rank: 3,
+    },
+  ];
   return (
     <TableContainer m="20" ml="200" mr="200" bg="#B01041">
       <Table variant="striped" colorScheme="red">
@@ -33,21 +60,7 @@ export default function Leaderboard() {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>inches</Td>
-            <Td>millimetres (mm)</Td>
-            <Td>25.4</Td>
-          </Tr>
-          <Tr>
-            <Td>feet</Td>
-            <Td>centimetres (cm)</Td>
-            <Td>30.48</Td>
-          </Tr>
-          <Tr>
-            <Td>yards</Td>
-            <Td>metres (m)</Td>
-            <Td>0.91444</Td>
-          </Tr>
+          <PlayerRows players={players}></PlayerRows>
         </Tbody>
       </Table>
     </TableContainer>

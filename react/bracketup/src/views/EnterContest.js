@@ -12,7 +12,7 @@ function EnterContest() {
     ["CAN", "MAR", "AUS", "NEW"],
   ];
   return (
-    <Box bg="blackAlpha.50" bgSize="100%">
+    <Box bgSize="100%">
       <Header></Header>
       <Input placeholder="Enter a Name!" size="sm" width="200px" m={4}></Input>
       <AllGroupPicks groups={teams}></AllGroupPicks>
