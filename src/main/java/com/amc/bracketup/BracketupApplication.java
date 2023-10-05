@@ -15,6 +15,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.Closeable;
 import java.util.ArrayList;
@@ -27,10 +28,14 @@ public class BracketupApplication {
     public static void main(String[] args) {
         SpringApplication.run(BracketupApplication.class, args);
 
+        Dotenv dotenv = Dotenv.load();
+        String apiKey = dotenv.get("API_KEY");
+
+
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet("https://v3.football.api-sports.io/standings?league=1&season=2022");
             httpGet.setHeader("x-rapidapi-host", "v3.football.api-sports.io");
-            httpGet.setHeader("x-rapidapi-key", "dd5c4e69ad727fd94a3af9a9244f0553");
+            httpGet.setHeader("x-rapidapi-key", apiKey);
 
             HttpResponse response = client.execute(httpGet);
 
